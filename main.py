@@ -5,10 +5,8 @@ class Student:
         self.courses = []
 
     def register(self, course):
-        if course.is_full():
-            print("course is full")
-        elif self.is_registered(course):
-            print("You are already registered for {course.name}.")
+        if self.is_registered(course):
+            print(f"You are already registered for : {course.name}")
         else:
             course.register_student(self)
             self.courses.append(course)
@@ -26,9 +24,14 @@ class Course:
         self.students = []
 
     def register_student(self, student):
-        self.students.append(student)
+        if self.is_full():
+            print("course is full")
+        else:
+            self.students.append(student)
 
     def is_full(self):
+        # print(f"students len : {len(self.students)} capacity is : {self.capacity}")
+        # print(len(self.students) >= self.capacity)
         return len(self.students) >= self.capacity
 
 
@@ -37,7 +40,7 @@ student1 = Student("Alice", 1)
 student2 = Student("Bob", 2)
 
 # Create a course
-course1 = Course("Math", 3, 20)
+course1 = Course("Math", 3, 1)
 
 # Sign up students for the course
 student1.register(course1)
